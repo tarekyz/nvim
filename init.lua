@@ -181,6 +181,9 @@ require('lazy').setup({
   -- "gc" to comment visual regions/lines
   { 'numToStr/Comment.nvim', opts = {} },
 
+  -- Make better comments
+  { 'preservim/nerdcommenter', opts = {}, config = function () end },
+
   -- Fuzzy Finder (files, lsp, etc)
   {
     'nvim-telescope/telescope.nvim',
@@ -587,6 +590,9 @@ keymap("i", "<C-l>", "<Right>", opts)
 
 -- save with control+s
 keymap("n", "<C-s>", "<cmd>w<CR>", opts)
+
+-- diagnostics
+keymap("n", "<leader>sdl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
 
 -- Resource nvim
 function ReloadConfig()
