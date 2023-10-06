@@ -142,27 +142,31 @@ require('lazy').setup({
     },
   },
 
-  {
+  --{
     -- Theme inspired by Atom
-    'navarasu/onedark.nvim',
+   -- 'navarasu/onedark.nvim',
+    --priority = 1000,
+--    config = function()
+ --     vim.cmd.colorscheme 'onedark'
+  --  end,
+  --},
+
+  {
+    -- Catppuccin light Theme
+    'catppuccin/nvim',
+    name = 'catppuccin',
     priority = 1000,
     config = function()
-      vim.cmd.colorscheme 'onedark'
+      vim.cmd.colorscheme 'catppuccin-latte'
     end,
   },
+
 
   {
     -- Set lualine as statusline
     'nvim-lualine/lualine.nvim',
     -- See `:help lualine.txt`
-    opts = {
-      options = {
-        icons_enabled = false,
-        theme = 'onedark',
-        component_separators = '|',
-        section_separators = '',
-      },
-    },
+    opts = {},
   },
 
   {
@@ -314,10 +318,10 @@ vim.keymap.set('n', '<leader>/', function()
 end, { desc = '[/] Fuzzily search in current buffer' })
 
 vim.keymap.set('n', '<leader>gf', require('telescope.builtin').git_files, { desc = 'Search [G]it [F]iles' })
-vim.keymap.set('n', '<leader>sf', require('telescope.builtin').find_files, { desc = '[S]earch [F]iles' })
+vim.keymap.set('n', '<C-p>', require('telescope.builtin').find_files, { desc = '[S]earch [F]iles' })
 vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
-vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
-vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
+vim.keymap.set('n', '<C-f>', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
+vim.keymap.set('n', '<leader>fw', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = '[S]earch [R]esume' })
 
@@ -548,6 +552,50 @@ cmp.setup {
     { name = 'luasnip' },
   },
 }
+
+-- keymappings
+
+local opts = {noremap = true, silent = true}
+
+local keymap = vim.api.nvim_set_keymap
+
+-- Map leader
+keymap("n", "<Space>", "<Nop>", opts)
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+
+-- don't' hate me for this
+keymap("i", "<C-c>", "<Esc>", opts)
+
+-- move through windows
+keymap("n", "<C-h>", "<C-w>h", opts)
+keymap("n", "<C-j>", "<C-w>j", opts)
+keymap("n", "<C-k>", "<C-w>k", opts)
+keymap("n", "<C-l>", "<C-w>l", opts)
+
+-- resize windows
+keymap("n", "<A-k>", "<C-w>-", opts)
+keymap("n", "<A-j>", "<C-w>+", opts)
+keymap("n", "<A-h>", "<C-w><", opts)
+keymap("n", "<A-l>", "<C-w>>", opts)
+
+-- move with hjkl in insert mode
+keymap("i", "<C-h>", "<Left>", opts)
+keymap("i", "<C-j>", "<Down>", opts)
+keymap("i", "<C-k>", "<Up>", opts)
+keymap("i", "<C-l>", "<Right>", opts)
+
+-- save with control+s
+keymap("n", "<C-s>", "<cmd>w<CR>", opts)
+
+-- Resource nvim
+function ReloadConfig()
+    vim.cmd('source $HOME/.config/nvim/init.lua')
+    print('Config reloaded!')
+end
+
+
+vim.api.nvim_set_keymap('n', '<leader>r', ':lua ReloadConfig()<CR>', { noremap = true, silent = true })
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
