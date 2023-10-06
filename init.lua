@@ -142,15 +142,6 @@ require('lazy').setup({
     },
   },
 
-  --{
-    -- Theme inspired by Atom
-   -- 'navarasu/onedark.nvim',
-    --priority = 1000,
---    config = function()
- --     vim.cmd.colorscheme 'onedark'
-  --  end,
-  --},
-
   {
     -- Catppuccin light Theme
     'catppuccin/nvim',
@@ -160,7 +151,6 @@ require('lazy').setup({
       vim.cmd.colorscheme 'catppuccin-latte'
     end,
   },
-
 
   {
     -- Set lualine as statusline
@@ -183,6 +173,9 @@ require('lazy').setup({
 
   -- Make better comments
   { 'preservim/nerdcommenter', opts = {}, config = function () end },
+
+  -- ToggleTerm terminal
+  {'akinsho/toggleterm.nvim', version = "*", config = true},
 
   -- Fuzzy Finder (files, lsp, etc)
   {
@@ -228,6 +221,9 @@ require('lazy').setup({
   --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
   -- { import = 'custom.plugins' },
 }, {})
+
+require("custom.lualine")
+require("custom.toggleterm")
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
