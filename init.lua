@@ -182,6 +182,14 @@ require('lazy').setup({
       dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
   },
 
+  -- Auto close brackets and stuff
+  {
+    'windwp/nvim-autopairs',
+    config = function()
+      require('nvim-autopairs').setup{}
+    end,
+  },
+
   -- Fuzzy Finder (files, lsp, etc)
   {
     'nvim-telescope/telescope.nvim',
