@@ -177,6 +177,11 @@ require('lazy').setup({
   -- ToggleTerm terminal
   {'akinsho/toggleterm.nvim', version = "*", config = true},
 
+  {
+      "nvim-telescope/telescope-file-browser.nvim",
+      dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
+  },
+
   -- Fuzzy Finder (files, lsp, etc)
   {
     'nvim-telescope/telescope.nvim',
@@ -590,6 +595,10 @@ keymap("n", "<C-s>", "<cmd>w<CR>", opts)
 -- diagnostics
 keymap("n", "<leader>sdl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
 
+-- telescope keymappings
+require("telescope").load_extension "file_browser"
+keymap("n", "<leader>fb", "<cmd>lua require 'telescope'.extensions.file_browser.file_browser{hidden = true}<CR>", opts)
+
 -- Resource nvim
 function ReloadConfig()
     vim.cmd('source $HOME/.config/nvim/init.lua')
@@ -598,6 +607,6 @@ end
 
 
 vim.api.nvim_set_keymap('n', '<leader>r', ':lua ReloadConfig()<CR>', { noremap = true, silent = true })
-
+vim.g.statusline = [[%!luaeval('require"lualine.components.filename".get_file_path()')]]
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
