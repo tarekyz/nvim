@@ -190,6 +190,12 @@ require('lazy').setup({
     end,
   },
 
+  -- Wakatime
+  {
+    'wakatime/vim-wakatime',
+    config = function() end,
+  },
+
   -- Fuzzy Finder (files, lsp, etc)
   {
     'nvim-telescope/telescope.nvim',
