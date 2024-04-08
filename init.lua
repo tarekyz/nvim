@@ -249,7 +249,7 @@ require("custom.toggleterm")
 -- NOTE: You can change these options as you wish!
 
 -- Set highlight on search
-vim.o.hlsearch = false
+vim.o.hlsearch = true
 
 -- Make line numbers default
 vim.wo.number = true
@@ -602,6 +602,20 @@ keymap("i", "<C-h>", "<Left>", opts)
 keymap("i", "<C-j>", "<Down>", opts)
 keymap("i", "<C-k>", "<Up>", opts)
 keymap("i", "<C-l>", "<Right>", opts)
+
+-- Move text
+keymap("v", "J", ":m '>+1<CR>gv=gv", opts)
+keymap("v", "K", ":m '<-2<CR>gv=gv", opts)
+keymap("i", "<C-A-k>", "<esc>:m .-2<CR>==i", opts)
+keymap("i", "<C-A-j>", "<esc>:m .+1<CR>==i", opts)
+keymap("n", "<leader>k", "<esc>:m .-2<CR>==", opts)
+keymap("n", "<leader>j", "<esc>:m .+1<CR>==", opts)
+
+-- Resize current window mappings
+vim.api.nvim_set_keymap('n', '<Up>', ':resize +2<CR>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<Down>', ':resize -2<CR>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<Left>', ':vertical resize +2<CR>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<Right>', ':vertical resize -2<CR>', {noremap = true, silent = true})
 
 -- save with control+s
 keymap("n", "<C-s>", "<cmd>w<CR>", opts)
