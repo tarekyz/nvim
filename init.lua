@@ -222,6 +222,12 @@ require('lazy').setup({
       dependencies = { "nvim-lua/plenary.nvim" }
   },
 
+  ---- Copilot
+  --{
+  --    "github/copilot",
+  --    config = function() end,
+  --},
+
   -- Fuzzy Finder (files, lsp, etc)
   {
     'nvim-telescope/telescope.nvim',
@@ -711,3 +717,9 @@ vim.keymap.set('n', '<Leader>B', function() require('dap').set_breakpoint() end)
 vim.keymap.set('n', '<Leader>lp', function() require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end)
 vim.keymap.set('n', '<Leader>dr', function() require('dap').repl.open() end)
 vim.keymap.set('n', '<Leader>dl', function() require('dap').run_last() end)
+
+-- Load Gitsigns
+require('gitsigns').setup()
+
+-- Keybinding to trigger Gitsigns blame_line
+vim.api.nvim_set_keymap('n', '<leader>gb', '<cmd>lua require"gitsigns".blame_line()<CR>', { noremap = true, silent = true })
