@@ -241,7 +241,7 @@ require('lazy').setup({
       conform.setup {
         formatters_by_ft = {
           lua = { 'stylua' },
-          python = { 'ruff' },
+          python = { 'ruff_format' },
           javascript = { { 'prettierd', 'prettier' } },
           typescript = { { 'prettierd', 'prettier' } },
           javascriptreact = { { 'prettierd', 'prettier' } },
@@ -250,6 +250,11 @@ require('lazy').setup({
           markdown = { { 'prettierd', 'prettier' } },
           rust = { 'rustfmt' },
           css = { { 'prettierd', 'prettier' } },
+        },
+        format_on_save = {
+          -- These options will be passed to conform.format()
+          timeout_ms = 500,
+          lsp_format = 'fallback',
         },
       }
 
@@ -734,15 +739,6 @@ local function toggle_telescope(harpoon_files)
     :find()
 end
 
--- some conform format on save config
-
-require('conform').setup {
-  format_on_save = {
-    -- These options will be passed to conform.format()
-    timeout_ms = 500,
-    lsp_format = 'fallback',
-  },
-}
 --vim.keymap.set("n", "<C-t>", function() toggle_telescope(harpoon:list()) end,
 --    { desc = "Open harpoon window" })
 vim.keymap.set('n', '<leader>1', function()
