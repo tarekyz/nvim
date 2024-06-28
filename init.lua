@@ -128,16 +128,24 @@ require('lazy').setup({
 
         -- don't override the built-in and fugitive keymaps
         local gs = package.loaded.gitsigns
-        vim.keymap.set({'n', 'v'}, ']c', function()
-          if vim.wo.diff then return ']c' end
-          vim.schedule(function() gs.next_hunk() end)
+        vim.keymap.set({ 'n', 'v' }, ']c', function()
+          if vim.wo.diff then
+            return ']c'
+          end
+          vim.schedule(function()
+            gs.next_hunk()
+          end)
           return '<Ignore>'
-        end, {expr=true, buffer = bufnr, desc = "Jump to next hunk"})
-        vim.keymap.set({'n', 'v'}, '[c', function()
-          if vim.wo.diff then return '[c' end
-          vim.schedule(function() gs.prev_hunk() end)
+        end, { expr = true, buffer = bufnr, desc = 'Jump to next hunk' })
+        vim.keymap.set({ 'n', 'v' }, '[c', function()
+          if vim.wo.diff then
+            return '[c'
+          end
+          vim.schedule(function()
+            gs.prev_hunk()
+          end)
           return '<Ignore>'
-        end, {expr=true, buffer = bufnr, desc = "Jump to previous hunk"})
+        end, { expr = true, buffer = bufnr, desc = 'Jump to previous hunk' })
       end,
     },
   },
@@ -164,7 +172,7 @@ require('lazy').setup({
     'lukas-reineke/indent-blankline.nvim',
     -- Enable `lukas-reineke/indent-blankline.nvim`
     -- See `:help indent_blankline.txt`
-    main = "ibl",
+    main = 'ibl',
     opts = {},
   },
 
@@ -172,21 +180,21 @@ require('lazy').setup({
   { 'numToStr/Comment.nvim', opts = {} },
 
   -- Make better comments
-  { 'preservim/nerdcommenter', opts = {}, config = function () end },
+  { 'preservim/nerdcommenter', opts = {}, config = function() end },
 
   -- ToggleTerm terminal
-  {'akinsho/toggleterm.nvim', version = "*", config = true},
+  { 'akinsho/toggleterm.nvim', version = '*', config = true },
 
   {
-      "nvim-telescope/telescope-file-browser.nvim",
-      dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
+    'nvim-telescope/telescope-file-browser.nvim',
+    dependencies = { 'nvim-telescope/telescope.nvim', 'nvim-lua/plenary.nvim' },
   },
 
   -- Auto close brackets and stuff
   {
     'windwp/nvim-autopairs',
     config = function()
-      require('nvim-autopairs').setup{}
+      require('nvim-autopairs').setup {}
     end,
   },
 
@@ -196,7 +204,7 @@ require('lazy').setup({
     config = function() end,
   },
 
-  -- Dap 
+  -- Dap
   {
     'mfussenegger/nvim-dap',
     config = function() end,
@@ -209,17 +217,50 @@ require('lazy').setup({
   },
 
   {
-    "rcarriga/nvim-dap-ui",
+    'rcarriga/nvim-dap-ui',
     dependencies = {
-      "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"
-    }
+      'mfussenegger/nvim-dap',
+      'nvim-neotest/nvim-nio',
+    },
   },
 
-  -- Harpoon 
+  -- Harpoon
   {
-      "ThePrimeagen/harpoon",
-      branch = "harpoon2",
-      dependencies = { "nvim-lua/plenary.nvim" }
+    'ThePrimeagen/harpoon',
+    branch = 'harpoon2',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+  },
+
+  -- Formatting
+  {
+    'stevearc/conform.nvim',
+    event = { 'BufReadPre', 'BufNewFile' },
+    config = function()
+      local conform = require 'conform'
+
+      conform.setup {
+        formatters_by_ft = {
+          lua = { 'stylua' },
+          python = { 'ruff' },
+          javascript = { { 'prettierd', 'prettier' } },
+          typescript = { { 'prettierd', 'prettier' } },
+          javascriptreact = { { 'prettierd', 'prettier' } },
+          typescriptreact = { { 'prettierd', 'prettier' } },
+          json = { { 'prettierd', 'prettier' } },
+          markdown = { { 'prettierd', 'prettier' } },
+          rust = { 'rustfmt' },
+          css = { { 'prettierd', 'prettier' } },
+        },
+      }
+
+      --vim.keymap.set({ "n", "v" }, "<leader>l", function()
+      --  conform.format({
+      --    lsp_fallback = true,
+      --    async = false,
+      --    timeout_ms = 1000,
+      --  })
+      --end, { desc = "Format file or range (in visual mode)" })
+    end,
   },
 
   ---- Copilot
@@ -273,8 +314,8 @@ require('lazy').setup({
   -- { import = 'custom.plugins' },
 }, {})
 
-require("custom.lualine")
-require("custom.toggleterm")
+require 'custom.lualine'
+require 'custom.toggleterm'
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
@@ -382,10 +423,10 @@ vim.defer_fn(function()
   require('nvim-treesitter.configs').setup {
     -- Add languages to be installed here that you want installed for treesitter
     ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim' },
-  
+
     -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
     auto_install = false,
-  
+
     highlight = { enable = true },
     indent = { enable = true },
     incremental_selection = {
@@ -496,7 +537,7 @@ local on_attach = function(_, bufnr)
 end
 
 -- document existing key chains
-require('which-key').register({
+require('which-key').register {
   ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
   ['<leader>d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
   ['<leader>g'] = { name = '[G]it', _ = 'which_key_ignore' },
@@ -504,7 +545,7 @@ require('which-key').register({
   ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
   ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
   ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
-})
+}
 
 -- Enable the following language servers
 --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
@@ -552,7 +593,7 @@ mason_lspconfig.setup_handlers {
       settings = servers[server_name],
       filetypes = (servers[server_name] or {}).filetypes,
     }
-  end
+  end,
 }
 
 -- [[ Configure nvim-cmp ]]
@@ -605,118 +646,161 @@ cmp.setup {
 
 -- keymappings
 
-local opts = {noremap = true, silent = true}
+local opts = { noremap = true, silent = true }
 
 local keymap = vim.api.nvim_set_keymap
 
 -- Map leader
-keymap("n", "<Space>", "<Nop>", opts)
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
+keymap('n', '<Space>', '<Nop>', opts)
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
 
 -- don't' hate me for this
-keymap("i", "<C-c>", "<Esc>", opts)
+keymap('i', '<C-c>', '<Esc>', opts)
 
 -- move through windows
-keymap("n", "<C-h>", "<C-w>h", opts)
-keymap("n", "<C-j>", "<C-w>j", opts)
-keymap("n", "<C-k>", "<C-w>k", opts)
-keymap("n", "<C-l>", "<C-w>l", opts)
+keymap('n', '<C-h>', '<C-w>h', opts)
+keymap('n', '<C-j>', '<C-w>j', opts)
+keymap('n', '<C-k>', '<C-w>k', opts)
+keymap('n', '<C-l>', '<C-w>l', opts)
 
 -- resize windows
-keymap("n", "<A-k>", "<C-w>-", opts)
-keymap("n", "<A-j>", "<C-w>+", opts)
-keymap("n", "<A-h>", "<C-w><", opts)
-keymap("n", "<A-l>", "<C-w>>", opts)
+keymap('n', '<A-k>', '<C-w>-', opts)
+keymap('n', '<A-j>', '<C-w>+', opts)
+keymap('n', '<A-h>', '<C-w><', opts)
+keymap('n', '<A-l>', '<C-w>>', opts)
 
 -- move with hjkl in insert mode
-keymap("i", "<C-h>", "<Left>", opts)
-keymap("i", "<C-j>", "<Down>", opts)
-keymap("i", "<C-k>", "<Up>", opts)
-keymap("i", "<C-l>", "<Right>", opts)
+keymap('i', '<C-h>', '<Left>', opts)
+keymap('i', '<C-j>', '<Down>', opts)
+keymap('i', '<C-k>', '<Up>', opts)
+keymap('i', '<C-l>', '<Right>', opts)
 
 -- Move text
-keymap("v", "J", ":m '>+1<CR>gv=gv", opts)
-keymap("v", "K", ":m '<-2<CR>gv=gv", opts)
-keymap("i", "<C-A-k>", "<esc>:m .-2<CR>==i", opts)
-keymap("i", "<C-A-j>", "<esc>:m .+1<CR>==i", opts)
-keymap("n", "<leader>k", "<esc>:m .-2<CR>==", opts)
-keymap("n", "<leader>j", "<esc>:m .+1<CR>==", opts)
+keymap('v', 'J', ":m '>+1<CR>gv=gv", opts)
+keymap('v', 'K', ":m '<-2<CR>gv=gv", opts)
+keymap('i', '<C-A-k>', '<esc>:m .-2<CR>==i', opts)
+keymap('i', '<C-A-j>', '<esc>:m .+1<CR>==i', opts)
+keymap('n', '<leader>k', '<esc>:m .-2<CR>==', opts)
+keymap('n', '<leader>j', '<esc>:m .+1<CR>==', opts)
 
 -- Resize current window mappings
-vim.api.nvim_set_keymap('n', '<Up>', ':resize +2<CR>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<Down>', ':resize -2<CR>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<Left>', ':vertical resize +2<CR>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<Right>', ':vertical resize -2<CR>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<Up>', ':resize +2<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<Down>', ':resize -2<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<Left>', ':vertical resize +2<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<Right>', ':vertical resize -2<CR>', { noremap = true, silent = true })
 
 -- save with control+s
-keymap("n", "<C-s>", "<cmd>w<CR>", opts)
+keymap('n', '<C-s>', '<cmd>w<CR>', opts)
 
 -- diagnostics
-keymap("n", "<leader>sdl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
+keymap('n', '<leader>sdl', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
 
 -- telescope keymappings
-require("telescope").load_extension "file_browser"
-keymap("n", "<leader>fb", "<cmd>lua require 'telescope'.extensions.file_browser.file_browser{hidden = true}<CR>", opts)
+require('telescope').load_extension 'file_browser'
+keymap('n', '<leader>fb', "<cmd>lua require 'telescope'.extensions.file_browser.file_browser{hidden = true}<CR>", opts)
 
 -- Resource nvim
 function ReloadConfig()
-    vim.cmd('source $HOME/.config/nvim/init.lua')
-    print('Config reloaded!')
+  vim.cmd 'source $HOME/.config/nvim/init.lua'
+  print 'Config reloaded!'
 end
-
 
 vim.api.nvim_set_keymap('n', '<leader>r', ':lua ReloadConfig()<CR>', { noremap = true, silent = true })
 vim.g.statusline = [[%!luaeval('require"lualine.components.filename".get_file_path()')]]
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
 
-local harpoon = require('harpoon')
-harpoon:setup({})
+local harpoon = require 'harpoon'
+harpoon:setup {}
 
 -- basic telescope configuration
-local conf = require("telescope.config").values
+local conf = require('telescope.config').values
 local function toggle_telescope(harpoon_files)
-    local file_paths = {}
-    for _, item in ipairs(harpoon_files.items) do
-        table.insert(file_paths, item.value)
-    end
+  local file_paths = {}
+  for _, item in ipairs(harpoon_files.items) do
+    table.insert(file_paths, item.value)
+  end
 
-    require("telescope.pickers").new({}, {
-        prompt_title = "Harpoon",
-        finder = require("telescope.finders").new_table({
-            results = file_paths,
-        }),
-        previewer = conf.file_previewer({}),
-        sorter = conf.generic_sorter({}),
-    }):find()
+  require('telescope.pickers')
+    .new({}, {
+      prompt_title = 'Harpoon',
+      finder = require('telescope.finders').new_table {
+        results = file_paths,
+      },
+      previewer = conf.file_previewer {},
+      sorter = conf.generic_sorter {},
+    })
+    :find()
 end
 
+-- some conform format on save config
+
+require('conform').setup {
+  format_on_save = {
+    -- These options will be passed to conform.format()
+    timeout_ms = 500,
+    lsp_format = 'fallback',
+  },
+}
 --vim.keymap.set("n", "<C-t>", function() toggle_telescope(harpoon:list()) end,
 --    { desc = "Open harpoon window" })
-vim.keymap.set("n", "<leader>1", function() harpoon:list():add() end, {desc="Add current file to harpoon buffer"})
-vim.keymap.set("n", "<C-t>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+vim.keymap.set('n', '<leader>1', function()
+  harpoon:list():add()
+end, { desc = 'Add current file to harpoon buffer' })
+vim.keymap.set('n', '<C-t>', function()
+  harpoon.ui:toggle_quick_menu(harpoon:list())
+end)
 
-vim.keymap.set("n", "<C-1>", function() harpoon:list():select(1) end)
-vim.keymap.set("n", "<C-2>", function() harpoon:list():select(2) end)
-vim.keymap.set("n", "<C-3>", function() harpoon:list():select(3) end)
-vim.keymap.set("n", "<C-4>", function() harpoon:list():select(4) end)
+vim.keymap.set('n', '<C-1>', function()
+  harpoon:list():select(1)
+end)
+vim.keymap.set('n', '<C-2>', function()
+  harpoon:list():select(2)
+end)
+vim.keymap.set('n', '<C-3>', function()
+  harpoon:list():select(3)
+end)
+vim.keymap.set('n', '<C-4>', function()
+  harpoon:list():select(4)
+end)
 
 -- Toggle previous & next buffers stored within Harpoon list
-vim.keymap.set("n", "<C-S-P>", function() harpoon:list():prev() end)
-vim.keymap.set("n", "<C-S-N>", function() harpoon:list():next() end)
+vim.keymap.set('n', '<C-S-P>', function()
+  harpoon:list():prev()
+end)
+vim.keymap.set('n', '<C-S-N>', function()
+  harpoon:list():next()
+end)
 
-
--- Dap bindings 
-vim.keymap.set('n', '<F5>', function() require('dap').continue() end)
-vim.keymap.set('n', '<F10>', function() require('dap').step_over() end)
-vim.keymap.set('n', '<F11>', function() require('dap').step_into() end)
-vim.keymap.set('n', '<F12>', function() require('dap').step_out() end)
-vim.keymap.set('n', '<Leader>b', function() require('dap').toggle_breakpoint() end)
-vim.keymap.set('n', '<Leader>B', function() require('dap').set_breakpoint() end)
-vim.keymap.set('n', '<Leader>lp', function() require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end)
-vim.keymap.set('n', '<Leader>dr', function() require('dap').repl.open() end)
-vim.keymap.set('n', '<Leader>dl', function() require('dap').run_last() end)
+-- Dap bindings
+vim.keymap.set('n', '<F5>', function()
+  require('dap').continue()
+end)
+vim.keymap.set('n', '<F10>', function()
+  require('dap').step_over()
+end)
+vim.keymap.set('n', '<F11>', function()
+  require('dap').step_into()
+end)
+vim.keymap.set('n', '<F12>', function()
+  require('dap').step_out()
+end)
+vim.keymap.set('n', '<Leader>b', function()
+  require('dap').toggle_breakpoint()
+end)
+vim.keymap.set('n', '<Leader>B', function()
+  require('dap').set_breakpoint()
+end)
+vim.keymap.set('n', '<Leader>lp', function()
+  require('dap').set_breakpoint(nil, nil, vim.fn.input 'Log point message: ')
+end)
+vim.keymap.set('n', '<Leader>dr', function()
+  require('dap').repl.open()
+end)
+vim.keymap.set('n', '<Leader>dl', function()
+  require('dap').run_last()
+end)
 
 -- Load Gitsigns
 require('gitsigns').setup()
