@@ -249,6 +249,8 @@ require('lazy').setup({
           json = { { 'prettierd', 'prettier' } },
           markdown = { { 'prettierd', 'prettier' } },
           rust = { 'rustfmt' },
+          go = { 'gofmt' },
+          zig = { 'zig_fmt' },
           css = { { 'prettierd', 'prettier' } },
         },
         format_on_save = {
@@ -269,10 +271,17 @@ require('lazy').setup({
   },
 
   ---- Copilot
-  --{
-  --    "github/copilot",
-  --    config = function() end,
-  --},
+  {
+    'zbirenbaum/copilot.lua',
+    cmd = 'Copilot',
+    event = 'InsertEnter',
+  },
+  {
+    'zbirenbaum/copilot-cmp',
+    config = function()
+      require('copilot_cmp').setup()
+    end,
+  },
 
   -- Fuzzy Finder (files, lsp, etc)
   {
@@ -644,6 +653,7 @@ cmp.setup {
     end, { 'i', 's' }),
   },
   sources = {
+    { name = 'copilot' },
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
   },
@@ -711,7 +721,7 @@ function ReloadConfig()
   print 'Config reloaded!'
 end
 
-vim.api.nvim_set_keymap('n', '<leader>r', ':lua ReloadConfig()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>r', ':LspRestart<CR>', { noremap = true, silent = true })
 vim.g.statusline = [[%!luaeval('require"lualine.components.filename".get_file_path()')]]
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
@@ -738,6 +748,12 @@ local function toggle_telescope(harpoon_files)
     })
     :find()
 end
+
+-- disable copilot lua suggestions
+require('copilot').setup {
+  suggestion = { enabled = false },
+  panel = { enabled = false },
+}
 
 --vim.keymap.set("n", "<C-t>", function() toggle_telescope(harpoon:list()) end,
 --    { desc = "Open harpoon window" })
@@ -803,3 +819,7 @@ require('gitsigns').setup()
 
 -- Keybinding to trigger Gitsigns blame_line
 vim.api.nvim_set_keymap('n', '<leader>gb', '<cmd>lua require"gitsigns".blame_line()<CR>', { noremap = true, silent = true })
+
+-- keybind to toggle/'dis'toggle copilot
+vim.api.nvim_set_keymap('n', '<leader>ce', ':Copilot enable<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>cd', ':Copilot disable<CR>', { noremap = true, silent = true })
