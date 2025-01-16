@@ -86,7 +86,7 @@ require('lazy').setup({
 
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
+      { 'j-hui/fidget.nvim',       tag = 'legacy', opts = {} },
 
       -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim',
@@ -110,7 +110,7 @@ require('lazy').setup({
   },
 
   -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim', opts = {} },
+  { 'folke/which-key.nvim',    opts = {} },
   {
     -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
@@ -156,7 +156,7 @@ require('lazy').setup({
     name = 'catppuccin',
     priority = 1000,
     config = function()
-      vim.cmd.colorscheme 'catppuccin-latte'
+      vim.cmd.colorscheme 'catppuccin-mocha'
     end,
   },
 
@@ -177,10 +177,10 @@ require('lazy').setup({
   },
 
   -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim', opts = {} },
+  { 'numToStr/Comment.nvim',   opts = {} },
 
   -- Make better comments
-  { 'preservim/nerdcommenter', opts = {}, config = function() end },
+  { 'preservim/nerdcommenter', opts = {},     config = function() end },
 
   -- ToggleTerm terminal
   { 'akinsho/toggleterm.nvim', version = '*', config = true },
@@ -738,15 +738,15 @@ local function toggle_telescope(harpoon_files)
   end
 
   require('telescope.pickers')
-    .new({}, {
-      prompt_title = 'Harpoon',
-      finder = require('telescope.finders').new_table {
-        results = file_paths,
-      },
-      previewer = conf.file_previewer {},
-      sorter = conf.generic_sorter {},
-    })
-    :find()
+      .new({}, {
+        prompt_title = 'Harpoon',
+        finder = require('telescope.finders').new_table {
+          results = file_paths,
+        },
+        previewer = conf.file_previewer {},
+        sorter = conf.generic_sorter {},
+      })
+      :find()
 end
 
 -- disable copilot lua suggestions
@@ -818,7 +818,8 @@ end)
 require('gitsigns').setup()
 
 -- Keybinding to trigger Gitsigns blame_line
-vim.api.nvim_set_keymap('n', '<leader>gb', '<cmd>lua require"gitsigns".blame_line()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>gb', '<cmd>lua require"gitsigns".blame_line()<CR>',
+  { noremap = true, silent = true })
 
 -- keybind to toggle/'dis'toggle copilot
 vim.api.nvim_set_keymap('n', '<leader>ce', ':Copilot enable<CR>', { noremap = true, silent = true })
