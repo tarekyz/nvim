@@ -231,6 +231,15 @@ require('lazy').setup({
     dependencies = { 'nvim-lua/plenary.nvim' },
   },
 
+  -- Hop Vim
+  {
+    'smoka7/hop.nvim',
+    version = "*",
+    opts = {
+      keys = 'etovxqpdygfblzhckisuran'
+    }
+  },
+
   -- Formatting
   {
     'stevearc/conform.nvim',
@@ -270,18 +279,18 @@ require('lazy').setup({
     end,
   },
 
-  ---- Copilot
-  {
-    'zbirenbaum/copilot.lua',
-    cmd = 'Copilot',
-    event = 'InsertEnter',
-  },
-  {
-    'zbirenbaum/copilot-cmp',
-    config = function()
-      require('copilot_cmp').setup()
-    end,
-  },
+  ------ Copilot
+  --{
+  --  'zbirenbaum/copilot.lua',
+  --  cmd = 'Copilot',
+  --  event = 'InsertEnter',
+  --},
+  --{
+  --  'zbirenbaum/copilot-cmp',
+  --  config = function()
+  --    require('copilot_cmp').setup()
+  --  end,
+  --},
 
   -- Fuzzy Finder (files, lsp, etc)
   {
@@ -653,7 +662,6 @@ cmp.setup {
     end, { 'i', 's' }),
   },
   sources = {
-    { name = 'copilot' },
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
   },
@@ -749,11 +757,6 @@ local function toggle_telescope(harpoon_files)
       :find()
 end
 
--- disable copilot lua suggestions
-require('copilot').setup {
-  suggestion = { enabled = false },
-  panel = { enabled = false },
-}
 
 --vim.keymap.set("n", "<C-t>", function() toggle_telescope(harpoon:list()) end,
 --    { desc = "Open harpoon window" })
@@ -821,6 +824,8 @@ require('gitsigns').setup()
 vim.api.nvim_set_keymap('n', '<leader>gb', '<cmd>lua require"gitsigns".blame_line()<CR>',
   { noremap = true, silent = true })
 
--- keybind to toggle/'dis'toggle copilot
-vim.api.nvim_set_keymap('n', '<leader>ce', ':Copilot enable<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>cd', ':Copilot disable<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>ho', '<cmd>HopWord<CR>', { desc = "Hopper :)" })
+
+---- keybind to toggle/'dis'toggle copilot
+--vim.api.nvim_set_keymap('n', '<leader>ce', ':Copilot enable<CR>', { noremap = true, silent = true })
+--vim.api.nvim_set_keymap('n', '<leader>cd', ':Copilot disable<CR>', { noremap = true, silent = true })
