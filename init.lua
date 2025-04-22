@@ -246,7 +246,7 @@ require('lazy').setup({
     config = function()
       require("supermaven-nvim").setup({
         keymaps = {
-          accept_suggestion = "<Tab>",
+          accept_suggestion = "<leader><Tab>",
           clear_suggestion = "<C-]>",
           accept_word = "<C-j>",
         },
@@ -606,11 +606,10 @@ require('which-key').register {
 local servers = {
   -- clangd = {},
   -- gopls = {},
-  -- pyright = {},
-  -- rust_analyzer = {},
   -- tsserver = {},
   -- html = { filetypes = { 'html', 'twig', 'hbs'} },
-
+  rust_analyzer = {},
+  pyright = {},
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
@@ -688,7 +687,6 @@ cmp.setup {
   },
   sources = {
     { name = 'nvim_lsp' },
-    { name = "supermaven" },
     { name = 'luasnip' },
   },
 }
