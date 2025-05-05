@@ -246,7 +246,7 @@ require('lazy').setup({
     config = function()
       require("supermaven-nvim").setup({
         keymaps = {
-          accept_suggestion = "<leader><Tab>",
+          accept_suggestion = "<Right>",
           clear_suggestion = "<C-]>",
           accept_word = "<C-j>",
         },
