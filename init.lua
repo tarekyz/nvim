@@ -754,7 +754,8 @@ function ReloadConfig()
   print 'Config reloaded!'
 end
 
-vim.api.nvim_set_keymap('n', '<leader>r', ':LspRestart<CR>', { noremap = true, silent = true })
+--vim.api.nvim_set_keymap('n', '<leader>r', ':LspRestart<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>r', ':e<CR>', { noremap = true, silent = true })
 vim.g.statusline = [[%!luaeval('require"lualine.components.filename".get_file_path()')]]
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
