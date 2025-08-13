@@ -69,33 +69,6 @@ return {
     end,
   },
 
-  -- Debug Adapter Protocol
-  {
-    'mfussenegger/nvim-dap',
-    dependencies = {
-      'mfussenegger/nvim-dap-python',
-      {
-        'rcarriga/nvim-dap-ui',
-        dependencies = { 'nvim-neotest/nvim-nio' },
-      },
-    },
-    config = function()
-      local dap = require('dap')
-
-      -- DAP keymaps
-      vim.keymap.set('n', '<F5>', dap.continue, { desc = 'Debug: Continue' })
-      vim.keymap.set('n', '<F10>', dap.step_over, { desc = 'Debug: Step Over' })
-      vim.keymap.set('n', '<F11>', dap.step_into, { desc = 'Debug: Step Into' })
-      vim.keymap.set('n', '<F12>', dap.step_out, { desc = 'Debug: Step Out' })
-      vim.keymap.set('n', '<Leader>b', dap.toggle_breakpoint, { desc = 'Debug: Toggle Breakpoint' })
-      vim.keymap.set('n', '<Leader>B', dap.set_breakpoint, { desc = 'Debug: Set Breakpoint' })
-      vim.keymap.set('n', '<Leader>lp', function()
-        dap.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))
-      end, { desc = 'Debug: Log Point' })
-      vim.keymap.set('n', '<Leader>dr', dap.repl.open, { desc = 'Debug: REPL' })
-      vim.keymap.set('n', '<Leader>dl', dap.run_last, { desc = 'Debug: Run Last' })
-    end,
-  },
 
   -- Harpoon for file navigation
   {
