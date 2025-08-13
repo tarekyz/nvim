@@ -8,6 +8,7 @@ return {
       'folke/neodev.nvim',
     },
     config = function()
+      vim.keymap.set('n', 'gd', require('telescope.builtin').lsp_definitions, { desc = '[G]oto [D]efinition' })
       local on_attach = function(_, bufnr)
         local nmap = function(keys, func, desc)
           if desc then
@@ -18,7 +19,6 @@ return {
 
         nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
         nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
-        nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
         nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
         nmap('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
         nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
@@ -87,4 +87,3 @@ return {
     end,
   },
 }
-
