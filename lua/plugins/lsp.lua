@@ -45,6 +45,7 @@ return {
       -- LSP servers configuration
       local servers = {
         rust_analyzer = {},
+        tsgo = {},
         pyright = {},
         lua_ls = {
           Lua = {
@@ -66,12 +67,13 @@ return {
 
       -- Setup LSP handlers
       for server_name, server_config in pairs(servers) do
-        require('lspconfig')[server_name].setup({
+        vim.lsp.config(server_name, {
           capabilities = capabilities,
           on_attach = on_attach,
           settings = server_config,
           filetypes = server_config.filetypes,
         })
+        vim.lsp.enable(server_name)
       end
 
       -- Which-key registrations

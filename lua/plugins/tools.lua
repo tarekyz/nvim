@@ -57,6 +57,8 @@ return {
           json = { 'prettierd', 'prettier', stop_after_first = true },
           markdown = { 'prettierd', 'prettier', stop_after_first = true },
           rust = { 'rustfmt' },
+          c = { 'clang_format' },
+          cpp = { 'clang_format' },
           go = { 'gofmt' },
           zig = { 'zig_fmt' },
           css = { 'prettierd', 'prettier', stop_after_first = true },
